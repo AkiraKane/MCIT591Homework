@@ -43,6 +43,12 @@ public class BlackjackSolitaire {
         System.out.println("Card to put -> " + currentCard.getType());
         System.out.print("Where to put (1-20)?: ");
         Scanner scanner = new Scanner(System.in);
+        while (!(scanner.hasNextInt())) { //Check whether the input is an integer
+            System.out.println("Invalid input, please input an integer!");
+            System.out.println("Card to put -> " + currentCard.getType());
+            System.out.print("Where to put (1-20)?: ");
+            scanner = new Scanner(System.in);
+        }
         int index = scanner.nextInt();
         while (this.isFalseMove(index)) { // Check if the move is valid
             System.out.println("Card to put -> " + currentCard.getType());
