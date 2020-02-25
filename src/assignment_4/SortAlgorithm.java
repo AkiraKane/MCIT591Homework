@@ -2,8 +2,17 @@ package assignment_4;
 
 import java.util.ArrayList;
 
+/**
+ * A class that has a static method of sorting an array of Template.SuggestWord Objects
+ */
 public class SortAlgorithm {
 
+    /**
+     * Main sorting method
+     * @param array is an array of Template.SuggestWord Objects
+     * @param low is the lowest index
+     * @param high is the highest index
+     */
     public static void mergeSort(ArrayList<Template.SuggestWord> array, int low, int high) {
         if (low < high) {
             int mid = (low + high) / 2;
@@ -13,6 +22,13 @@ public class SortAlgorithm {
         }
     }
 
+    /**
+     * Merge method, a part of the main sorting method
+     * @param array is an array of Template.SuggestWord Objects
+     * @param low is the lowest index
+     * @param mid is the middle index
+     * @param high is the highest index
+     */
     public static void merge(ArrayList<Template.SuggestWord> array, int low, int mid, int high) {
         ArrayList<Template.SuggestWord> lPart = new ArrayList<>(), rPart = new ArrayList<>();
         for (int i = low; i <= mid; i++) {

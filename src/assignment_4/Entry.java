@@ -6,10 +6,24 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Entry class for the spell-check program
+ */
 public class Entry {
+    /**
+     * An array of Strings that contains every word in the user file
+     */
     private static ArrayList<String> fileWords = new ArrayList<>();
+
+    /**
+     * An array of Strings that contains every word that is going to be output
+     */
     private static ArrayList<String> newWords = new ArrayList<>();
 
+    /**
+     * Prompts the user to provide the user file
+     * @return the name of the user file
+     */
     public static String handleFileName () {
         Scanner inScanner = new Scanner(System.in);
         System.out.print("Please provide the name of your file -> ");
@@ -18,6 +32,11 @@ public class Entry {
         return fileName;
     }
 
+    /**
+     * Create the name of the output file
+     * @param givenFileName is the name of the user file provided by the user
+     * @return the name of the output file
+     */
     public static String handleOutFileName(String givenFileName) {
         StringBuilder outFileNameBuilder = new StringBuilder();
         int i = 0;
@@ -32,8 +51,13 @@ public class Entry {
         }
         return outFileNameBuilder.toString();
     }
-    public static void storeFileWords(String givenName) {
-        File userFile = new File(givenName);
+
+    /**
+     * Store every word in the user file to the static instance "fileWords"
+     * @param givenFileName is the name of the user file provided by the user
+     */
+    public static void storeFileWords(String givenFileName) {
+        File userFile = new File(givenFileName);
         try {
             Scanner inScan = new Scanner(userFile);
             while (inScan.hasNext()) {
@@ -45,6 +69,10 @@ public class Entry {
         }
     }
 
+    /**
+     * The main program that checks the spelling of every word from the user file
+     * @param givenRecommender is the word recommendation system based on the dictionary
+     */
     public static void spellCheck(WordRecommender givenRecommender) {
         for (String eachWord: Entry.fileWords) {
             boolean containWord = false;
@@ -127,6 +155,10 @@ public class Entry {
         }
     }
 
+    /**
+     * Writes every word in the static instance "newWords" to the output file
+     * @param givenOutFileName is the designated name of the output file
+     */
     public static void writeFile(String givenOutFileName) {
         try {
             PrintWriter outFile = new PrintWriter(givenOutFileName);
@@ -140,6 +172,9 @@ public class Entry {
         System.out.println("The spell-checked file " + givenOutFileName + " was created.");
     }
 
+    /**
+     * Main program
+     */
     public static void begin() {
         WordRecommender recommender = new WordRecommender("engDictionary.txt");
 

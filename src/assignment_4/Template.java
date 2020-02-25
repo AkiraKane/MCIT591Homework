@@ -31,7 +31,7 @@ public class Template {
 
         /**
          * Deafult constructor, calculate the word length and add letters to the letter list
-         * @param givenWord the word itself
+         * @param givenWord is the word itself
          */
         public DictWord(String givenWord) {
             this.word = givenWord;

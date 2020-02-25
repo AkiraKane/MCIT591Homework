@@ -12,7 +12,7 @@ public class WordRecommender {
 
     /**
      * Default constructor that adds each word from the txt to the dictionary
-     * @param fileName the filename of the dictionary
+     * @param fileName is the filename of the dictionary
      */
     public WordRecommender(String fileName) {
         this.dictName = fileName;
@@ -38,9 +38,9 @@ public class WordRecommender {
 
     /**
      * Computes two measures of similarity
-     * @param word1 the first given word
-     * @param word2 the second given word
-     * @return the average
+     * @param word1 is the first given word
+     * @param word2 is the second given word
+     * @return the average metric
      */
     public double getSimilarityMetric(String word1, String word2) {
         int leftSimilarity = 0, rightSimilarity = 0, i = 0, j = 0, length1 = word1.length(), length2 = word2.length();
@@ -65,11 +65,11 @@ public class WordRecommender {
 
     /**
      * Give suggestions of feasible words that can replace the incorrect word
-     * @param word the incorrect word
-     * @param n length difference
-     * @param commonPercent similarity
-     * @param topN the number of most similar words
-     * @return Top n suggestions
+     * @param word is the incorrect word
+     * @param n is length difference
+     * @param commonPercent is the designated similarity
+     * @param topN is the designated number of most similar words
+     * @return top n suggestions
      */
     public ArrayList<String> getWordSuggestions(String word, int n, double commonPercent, int topN) {
         int wordLength = word.length();
@@ -119,9 +119,9 @@ public class WordRecommender {
 
     /**
      * Provide list of words in the dictionary that have at least (>=) n letters in common
-     * @param word the given word
-     * @param listOfWords the given list of words from a dictionary
-     * @param n letters that are at least in common
+     * @param word is the given word
+     * @param listOfWords is the given list of words from a dictionary
+     * @param n is the number of letters that are at least in common
      * @return the list of words in the dictionary that have at least (>=) n letters in common
      */
     public ArrayList<String> getWordsWithCommonLetters(String word, ArrayList<String> listOfWords, int n) {
@@ -161,7 +161,7 @@ public class WordRecommender {
 
     /**
      * Purely for display purposes
-     * @param list a list of words
+     * @param list is a list of words
      * @return a String which when printed will have the list elements with a number in front of them
      */
     public String prettyPrint(ArrayList<String> list) {
@@ -176,8 +176,4 @@ public class WordRecommender {
         return concatenation.toString();
     }
 
-    public static void main(String[] args) {
-        WordRecommender re = new WordRecommender("engDictionary.txt");
-        System.out.println("END");
-    }
 }
