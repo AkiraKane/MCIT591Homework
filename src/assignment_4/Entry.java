@@ -10,13 +10,36 @@ public class Entry {
     private static ArrayList<String> fileWords = new ArrayList<>();
     private static ArrayList<String> newWords = new ArrayList<>();
 
+    public static String handleFileName () {
+        Scanner inScanner = new Scanner(System.in);
+        System.out.print("Please provide the name of your file -> ");
+        String fileName = inScanner.nextLine();
+        inScanner.close();
+        return fileName;
+    }
+
+    public static String handleOutFileName(String givenFileName) {
+        StringBuilder outFileNameBuilder = new StringBuilder();
+        int i = 0;
+        while (givenFileName.charAt(i) != '.') {
+            outFileNameBuilder.append(givenFileName.charAt(i));
+            i++;
+        }
+        outFileNameBuilder.append("_chk");
+        while (i < givenFileName.length()) {
+            outFileNameBuilder.append(givenFileName.charAt(i));
+            i++;
+        }
+        return outFileNameBuilder.toString();
+    }
     public static void storeFileWords(String givenName) {
         File userFile = new File(givenName);
         try {
-            Scanner in = new Scanner(userFile);
-            while (in.hasNext()) {
-                Entry.fileWords.add(in.next());
+            Scanner inScan = new Scanner(userFile);
+            while (inScan.hasNext()) {
+                Entry.fileWords.add(inScan.next());
             }
+            inScan.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -96,6 +119,7 @@ public class Entry {
                         Entry.newWords.add(replaceWord);
                     }
                 }
+                choiceScan.close();
             }
             else {
                 Entry.newWords.add(eachWord);
@@ -118,23 +142,12 @@ public class Entry {
 
     public static void begin() {
         WordRecommender recommender = new WordRecommender("engDictionary.txt");
-        Scanner in = new Scanner(System.in);
-        System.out.print("Please provide the name of your file -> ");
-        String fileName = in.nextLine();
-        StringBuilder outFileNameBuilder = new StringBuilder();
-        int i = 0;
-        while (fileName.charAt(i) != '.') {
-            outFileNameBuilder.append(fileName.charAt(i));
-            i++;
-        }
-        outFileNameBuilder.append("_chk");
-        while (i < fileName.length()) {
-            outFileNameBuilder.append(fileName.charAt(i));
-            i++;
-        }
-        String outFileName = outFileNameBuilder.toString();
 
-        Entry.storeFileWords(fileName);
+        String inputFileName = Entry.handleFileName();
+
+        String outFileName = Entry.handleOutFileName(inputFileName);
+
+        Entry.storeFileWords(inputFileName);
 
         Entry.spellCheck(recommender);
 

@@ -18,10 +18,11 @@ public class WordRecommender {
         this.dictName = fileName;
         File inputFile = new File(this.dictName);
         try {
-            Scanner in = new Scanner(inputFile);
-            while (in.hasNext()) {
-                this.dictionary.add(new Template.DictWord(in.next()));
+            Scanner inScan = new Scanner(inputFile);
+            while (inScan.hasNext()) {
+                this.dictionary.add(new Template.DictWord(inScan.next()));
             }
+            inScan.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
