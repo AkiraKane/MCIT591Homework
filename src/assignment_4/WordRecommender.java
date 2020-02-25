@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WordRecommender {
     private String dictName;
@@ -18,12 +19,20 @@ public class WordRecommender {
         File inputFile = new File(this.dictName);
         try {
             Scanner in = new Scanner(inputFile);
-            while (in.hasNextLine()) {
-                dictionary.add(new Template.DictWord(in.nextLine()));
+            while (in.hasNext()) {
+                this.dictionary.add(new Template.DictWord(in.next()));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Getter
+     * @return the dictionary
+     */
+    public ArrayList<Template.DictWord> getDictionary() {
+        return this.dictionary;
     }
 
     /**
@@ -90,7 +99,7 @@ public class WordRecommender {
             boolean isCriteriaMet2 = ((dictWord.wordLength >= wordLength - n) && (dictWord.wordLength <= wordLength + n));
 
             if (isCriteriaMet1 && isCriteriaMet2) {
-                suggestedWords.add(new Template.SuggestWord(dictWord.word, thisCommonPercent));
+                suggestedWords.add(new Template.SuggestWord(dictWord.word, this.getSimilarityMetric(word, dictWord.word)));
             }
         }
 
@@ -107,19 +116,67 @@ public class WordRecommender {
         return suggestions;
     }
 
-//    public ArrayList<String> getWordsWithCommonLetters(String word, ArrayList<String> listOfWords, int n) {
-//
-//    }
-//
-//    public String prettyPrint(ArrayList<String> list) {
-//
-//    }
+    /**
+     * Provide list of words in the dictionary that have at least (>=) n letters in common
+     * @param word the given word
+     * @param listOfWords the given list of words from a dictionary
+     * @param n letters that are at least in common
+     * @return the list of words in the dictionary that have at least (>=) n letters in common
+     */
+    public ArrayList<String> getWordsWithCommonLetters(String word, ArrayList<String> listOfWords, int n) {
+        int wordLength = word.length();
+        ArrayList<Character> wordLetters = new ArrayList<>();
+
+        for (int index = 0; index < wordLength; index++) {
+            if (!wordLetters.contains(word.charAt(index))) {
+                wordLetters.add(word.charAt(index));
+            }
+        }
+
+        ArrayList<String> feasibleWords = new ArrayList<>();
+        for (String possibleWord: listOfWords) {
+            int possibleWordLength = possibleWord.length();
+            ArrayList<Character> possibleWordLetters = new ArrayList<>();
+
+            for (int index = 0; index < possibleWordLength; index++) {
+                if (!possibleWordLetters.contains(possibleWord.charAt(index))) {
+                    possibleWordLetters.add(possibleWord.charAt(index));
+                }
+            }
+
+            int commonLetterNum = 0;
+            for (char letter: possibleWordLetters) {
+                if (wordLetters.contains(letter)) {
+                    commonLetterNum++;
+                }
+            }
+
+            if (commonLetterNum >= n) {
+                feasibleWords.add(possibleWord);
+            }
+        }
+        return feasibleWords;
+    }
+
+    /**
+     * Purely for display purposes
+     * @param list a list of words
+     * @return a String which when printed will have the list elements with a number in front of them
+     */
+    public String prettyPrint(ArrayList<String> list) {
+        StringBuilder concatenation = new StringBuilder();
+        int listSize = list.size();
+        for (int i = 0; i < listSize; i++) {
+            concatenation.append(i);
+            concatenation.append(". ");
+            concatenation.append(list.get(i));
+            concatenation.append("\n");
+        }
+        return concatenation.toString();
+    }
 
     public static void main(String[] args) {
-        WordRecommender recommend = new WordRecommender("dictionary.txt");
-        double result = recommend.getSimilarityMetric("oblige", "oblivion");
-        ArrayList<String> results = recommend.getWordSuggestions("abundonat", 10, 0.70, 5);
-
+        WordRecommender re = new WordRecommender("engDictionary.txt");
         System.out.println("END");
     }
 }

@@ -5,4 +5,5 @@ out/
 *.ipr
 *.iws
 test.txt
+engDictionary.txt
 /src/BlankLinesRemover.java
