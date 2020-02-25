@@ -40,7 +40,7 @@ public class SortAlgorithm {
         int i = 0, j = 0, lSize = lPart.size(), rSize = rPart.size();
         for (int k = low; k <= high; k++) {
             if ((i < lSize) && (j < rSize)) {
-                if (lPart.get(i).stats >= rPart.get(j).stats) {
+                if (lPart.get(i).getStats() >= rPart.get(j).getStats()) {
                     array.set(k, lPart.get(i));
                     i++;
                 }

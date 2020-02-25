@@ -10,26 +10,17 @@ import java.util.Scanner;
  * Entry class for the spell-check program
  */
 public class Entry {
-    /**
-     * An array of Strings that contains every word in the user file
-     */
     private static ArrayList<String> fileWords = new ArrayList<>();
-
-    /**
-     * An array of Strings that contains every word that is going to be output
-     */
     private static ArrayList<String> newWords = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
 
     /**
      * Prompts the user to provide the user file
      * @return the name of the user file
      */
     public static String handleFileName () {
-        Scanner inScanner = new Scanner(System.in);
         System.out.print("Please provide the name of your file -> ");
-        String fileName = inScanner.nextLine();
-        inScanner.close();
-        return fileName;
+        return Entry.scanner.nextLine();
     }
 
     /**
@@ -84,7 +75,7 @@ public class Entry {
             }
             else {
                 for (int i = 0; i < givenRecommender.getDictionary().size(); i++) {
-                    if (givenRecommender.getDictionary().get(i).word.equals(eachWord)) {
+                    if (givenRecommender.getDictionary().get(i).getWord().equals(eachWord)) {
                         containWord = true;
                         break;
                     }
@@ -92,17 +83,20 @@ public class Entry {
             }
 
             if (!containWord) {
-                ArrayList<String> suggestions = givenRecommender.getWordSuggestions(eachWord, 2, 0.5, 5);
+                ArrayList<String> suggestions = givenRecommender.getWordSuggestions(eachWord, 3, 0.6, 5);
                 System.out.println("The word \"" + eachWord + "\" was probably misspelled.");
-                Scanner choiceScan = new Scanner(System.in);
                 if (suggestions.size() == 0) {
                     System.out.println("There are 0 suggestions in our dictionary for this word.");
                     System.out.print("Press 'a' for accept as is, 't' for type in manually -> ");
 
-                    String choice = choiceScan.nextLine();
+                    String choice = Entry.scanner.nextLine();
+                    while (choice.equals("")) {
+                        choice = Entry.scanner.nextLine();
+                    }
+
                     while ((!choice.equals("a")) && (!choice.equals("t"))) {
                         System.out.print("Invalid input, please retry 'a' or 't' -> ");
-                        choice = choiceScan.nextLine();
+                        choice = Entry.scanner.nextLine();
                     }
                     if (choice.equals("a")) {
                         System.out.println("The word \"" + eachWord + "\" " + "will remain unchanged.\n");
@@ -110,7 +104,7 @@ public class Entry {
                     }
                     else {
                         System.out.print("Please type the word that will be used as the replacement in the output file -> ");
-                        String replaceWord = choiceScan.nextLine();
+                        String replaceWord = Entry.scanner.nextLine();
                         System.out.println("The word \"" + eachWord + "\" " + "will be changed to \"" + replaceWord + "\".\n");
                         Entry.newWords.add(replaceWord);
                     }
@@ -120,18 +114,22 @@ public class Entry {
                     System.out.println(givenRecommender.prettyPrint(suggestions));
 
                     System.out.print("Press 'r' for replace, 'a' for accept as is, 't' for type in manually -> ");
-                    String choice = choiceScan.nextLine();
+                    String choice = Entry.scanner.nextLine();
+                    while (choice.equals("")) {
+                        choice = Entry.scanner.nextLine();
+                    }
+
                     while ((!choice.equals("r")) && (!choice.equals("a")) && (!choice.equals("t"))) {
                         System.out.print("Invalid input, please retry 'r', 'a' or 't' -> ");
-                        choice = choiceScan.nextLine();
+                        choice = Entry.scanner.nextLine();
                     }
                     if (choice.equals("r")) {
                         System.out.println("Your word will now be replaced with one of the suggestions.");
                         System.out.print("Enter the number corresponding to the word that you want to use for replacement -> ");
-                        int wordNumber = choiceScan.nextInt();
+                        int wordNumber = Entry.scanner.nextInt() - 1;
                         while ((wordNumber > 4) || (wordNumber < 0)) {
                             System.out.print("Invalid input, please re-enter the correct number -> ");
-                            wordNumber = choiceScan.nextInt();
+                            wordNumber = Entry.scanner.nextInt() - 1;
                         }
                         System.out.println("The word \"" + eachWord + "\" " + "will be changed to \"" + suggestions.get(wordNumber) + "\".\n");
                         Entry.newWords.add(suggestions.get(wordNumber));
@@ -142,12 +140,11 @@ public class Entry {
                     }
                     else {
                         System.out.print("Please type the word that will be used as the replacement in the output file -> ");
-                        String replaceWord = choiceScan.nextLine();
+                        String replaceWord = Entry.scanner.nextLine();
                         System.out.println("The word \"" + eachWord + "\" " + "will be changed to \"" + replaceWord + "\".\n");
                         Entry.newWords.add(replaceWord);
                     }
                 }
-                choiceScan.close();
             }
             else {
                 Entry.newWords.add(eachWord);
@@ -189,6 +186,8 @@ public class Entry {
         Entry.writeFile(outFileName);
 
         System.out.println("Spell Check finished!");
+
+        Entry.scanner.close();
     }
 
     public static void main(String[] args) {

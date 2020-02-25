@@ -37,6 +37,14 @@ public class WordRecommender {
     }
 
     /**
+     * Getter
+     * @return the name of the dictionary
+     */
+    public String getDictName() {
+        return dictName;
+    }
+
+    /**
      * Computes two measures of similarity
      * @param word1 is the first given word
      * @param word2 is the second given word
@@ -110,7 +118,7 @@ public class WordRecommender {
         ArrayList<String> suggestions = new ArrayList<>();
         int i = 0, j = 0;
         while ((i < topN) && (j < suggestedWords.size())) {
-            suggestions.add(suggestedWords.get(j).word);
+            suggestions.add(suggestedWords.get(j).getWord());
             i++;
             j++;
         }
@@ -168,7 +176,7 @@ public class WordRecommender {
         StringBuilder concatenation = new StringBuilder();
         int listSize = list.size();
         for (int i = 0; i < listSize; i++) {
-            concatenation.append(i);
+            concatenation.append(i + 1);
             concatenation.append(". ");
             concatenation.append(list.get(i));
             concatenation.append("\n");

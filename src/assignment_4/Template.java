@@ -2,13 +2,16 @@ package assignment_4;
 
 import java.util.ArrayList;
 
+/**
+ * Self-designed templates. For all the templates within this class
+ */
 public class Template {
     /**
      * An object consists of a word and its stats. Mainly for sorting algorithm
      */
     public static class SuggestWord {
-        public String word;
-        public double stats;
+        private String word;
+        private double stats;
 
         /**
          * Default constructor
@@ -18,6 +21,22 @@ public class Template {
         public SuggestWord(String givenWord, double givenStats) {
             this.word = givenWord;
             this.stats = givenStats;
+        }
+
+        /**
+         * Getter
+         * @return the word
+         */
+        public String getWord() {
+            return word;
+        }
+
+        /**
+         * Getter
+         * @return the stats
+         */
+        public double getStats() {
+            return stats;
         }
     }
 
@@ -41,6 +60,30 @@ public class Template {
                     this.letters.add(this.word.charAt(i));
                 }
             }
+        }
+
+        /**
+         * Getter
+         * @return the word
+         */
+        public String getWord() {
+            return word;
+        }
+
+        /**
+         * Getter
+         * @return the list of letters it has
+         */
+        public ArrayList<Character> getLetters() {
+            return letters;
+        }
+
+        /**
+         * Getter
+         * @return the word length
+         */
+        public int getWordLength() {
+            return wordLength;
         }
     }
 }
