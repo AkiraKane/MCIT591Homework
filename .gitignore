@@ -4,7 +4,7 @@ out/
 *.iml
 *.ipr
 *.iws
-test.txt
-engDictionary.txt
 /src/BlankLinesRemover.java
-test2.txt
+*.csv
+*.txt
+
