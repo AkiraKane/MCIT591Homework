@@ -24,6 +24,31 @@ public class FlightInfo {
     private String airTime;
     private String distance;
 
+    public FlightInfo() {
+        dayOfMonth = "";
+        dayOfWeek = "";
+        FlightDate = "";
+        Carrier = "";
+        tailNum = "";
+        oriAirportID = "";
+        oriAirport = "";
+        oriState = "";
+        desAirportID = "";
+        desAirport = "";
+        desState = "";
+        depTime = "";
+        depDelay = "";
+        wheelsOff = "";
+        wheelsOn = "";
+        arrTime = "";
+        arrDelay = "";
+        canceled = "";
+        cancelCode = "";
+        diverted = "";
+        airTime = "";
+        distance = "";
+    }
+
     public FlightInfo(String dayOfMonth, String dayOfWeek, String flightDate, String carrier, String tailNum, String oriAirportID, String oriAirport, String oriState, String desAirportID, String desAirport, String desState, String depTime, String depDelay, String wheelsOff, String wheelsOn, String arrTime, String arrDelay, String canceled, String cancelCode, String diverted, String airTime, String distance) {
         this.dayOfMonth = dayOfMonth;
         this.dayOfWeek = dayOfWeek;

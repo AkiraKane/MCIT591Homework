@@ -7,12 +7,20 @@ import java.util.*;
 public class FileIO {
 
     public static class Data {
-        ArrayList<FlightInfo> fliedFlights;
-        ArrayList<FlightInfo> canceledFlights;
+        private ArrayList<FlightInfo> fliedFlights;
+        private ArrayList<FlightInfo> canceledFlights;
 
         public Data(ArrayList<FlightInfo> fliedFlights, ArrayList<FlightInfo> canceledFlights) {
             this.fliedFlights = fliedFlights;
             this.canceledFlights = canceledFlights;
+        }
+
+        public ArrayList<FlightInfo> getFliedFlights() {
+            return fliedFlights;
+        }
+
+        public ArrayList<FlightInfo> getCanceledFlights() {
+            return canceledFlights;
         }
     }
 
