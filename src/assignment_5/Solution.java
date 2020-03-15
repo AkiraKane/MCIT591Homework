@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * This class contains all the solutions
+ */
 public class Solution {
 
+    /**
+     * Self-designed class for a pair of String and double
+     */
     public static class StringDouble implements Comparable<StringDouble> {
         private String str;
         private double num;
@@ -31,6 +37,9 @@ public class Solution {
 
     }
 
+    /**
+     * Self-designed class for a pair of String and integer
+     */
     public static class StringInt implements Comparable<StringInt> {
         private String str;
         private int num;
@@ -54,6 +63,11 @@ public class Solution {
         }
     }
 
+    /**
+     * Solution to question 1
+     * @param data
+     * @return
+     */
     public static String questionOne(FileIO.Data data) {
         HashMap<String, Integer> flightNums = new HashMap<>();
         HashMap<String, Integer> cancelNums = new HashMap<>();
@@ -80,7 +94,11 @@ public class Solution {
                 "%";
     }
 
-    // only consider canceled flight
+    /**
+     * Solution to question 2
+     * @param data
+     * @return
+     */
     public static String questionTwo(FileIO.Data data) {
         HashMap<String, Integer> codeCount = new HashMap<>();
         for (FlightInfo info: data.getCanceledFlights()) {
@@ -100,7 +118,11 @@ public class Solution {
         return codeCounts[0].getStr();
     }
 
-    // didnt' count canceled flight
+    /**
+     * Solution to question 3
+     * @param data
+     * @return
+     */
     public static String questionThree(FileIO.Data data) {
         HashMap<String, Integer> flyDistance = new HashMap<>();
         for (FlightInfo flight: data.getFliedFlights()) {
@@ -115,11 +137,14 @@ public class Solution {
             i++;
         }
         Arrays.sort(distanceArray);
-        System.out.println("PAUSE");
         return distanceArray[0].getStr();
     }
 
-    // both in and out
+    /**
+     * Solution to question 4
+     * @param data
+     * @return
+     */
     public static String questionFour(FileIO.Data data) {
         HashMap<String, Integer> airportAppearance = new HashMap<>();
         for (FlightInfo flight: data.getFliedFlights()) {
@@ -136,10 +161,14 @@ public class Solution {
             i++;
         }
         Arrays.sort(airportArray);
-        System.out.println("PAUSE");
         return airportArray[0].getStr();
     }
 
+    /**
+     * Solution to question 5
+     * @param data
+     * @return
+     */
     public static String questionFive(FileIO.Data data) {
         HashMap<String, Integer> departure = new HashMap<>();
         HashMap<String, Integer> arrival = new HashMap<>();
@@ -166,10 +195,14 @@ public class Solution {
             i++;
         }
         Arrays.sort(airportArray);
-        System.out.println("PAUSE");
         return airportArray[0].getStr();
     }
 
+    /**
+     * Solution to question 6
+     * @param data
+     * @return
+     */
     public static String questionSix(FileIO.Data data) {
         HashMap<String, Integer> departure = new HashMap<>();
         HashMap<String, Integer> arrival = new HashMap<>();
@@ -196,10 +229,14 @@ public class Solution {
             i++;
         }
         Arrays.sort(airportArray);
-        System.out.println("PAUSE");
         return airportArray[0].getStr();
     }
 
+    /**
+     * Solution to question 7
+     * @param data
+     * @return
+     */
     public static int questionSeven(FileIO.Data data) {
         int count = 0;
         for (FlightInfo info: data.getFliedFlights()) {
@@ -212,6 +249,11 @@ public class Solution {
         return count;
     }
 
+    /**
+     * Solution to question 8
+     * @param data
+     * @return
+     */
     public static String questionEight(FileIO.Data data) {
         int delay = 0;
         FlightInfo result = new FlightInfo();
@@ -229,4 +271,27 @@ public class Solution {
                 result.getTailNum();
     }
 
+    /**
+     * Which flight of Carrier WN has the most flight records.
+     * @param data
+     * @return
+     */
+    public static String questionNine(FileIO.Data data) {
+        HashMap<String, Integer> flightRecords = new HashMap<>();
+        for (FlightInfo flight: data.getFliedFlights()) {
+            if (flight.getCarrier().equals("WN")) {
+                if (!flightRecords.containsKey(flight.getTailNum())) flightRecords.put(flight.getTailNum(), 1);
+                else flightRecords.put(flight.getTailNum(), flightRecords.get(flight.getTailNum()) + 1);
+            }
+        }
+
+        StringInt[] recordArray = new StringInt[flightRecords.size()];
+        int i = 0;
+        for (String flight: flightRecords.keySet()) {
+            recordArray[i] = new StringInt(flight, flightRecords.get(flight));
+            i++;
+        }
+        Arrays.sort(recordArray);
+        return "Which flight of Carrier WN has the most flight records? -> " + recordArray[0].getStr() + ", " + recordArray[0].getNum();
+    }
 }

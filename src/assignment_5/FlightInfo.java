@@ -1,5 +1,8 @@
 package assignment_5;
 
+/**
+ * The self-designed data structure for single flight ecord
+ */
 public class FlightInfo {
     private String dayOfMonth;
     private String dayOfWeek;

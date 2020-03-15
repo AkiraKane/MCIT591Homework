@@ -4,8 +4,14 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.util.*;
 
+/**
+ * This class is all about handling the files.
+ */
 public class FileIO {
 
+    /**
+     * This class is the self-designed data structure for the data
+     */
     public static class Data {
         private ArrayList<FlightInfo> fliedFlights;
         private ArrayList<FlightInfo> canceledFlights;
@@ -24,10 +30,15 @@ public class FileIO {
         }
     }
 
+    /**
+     * Handles the raw flight records
+     * @return flight records as in the self-designed data structure
+     * @throws FileNotFoundException
+     */
     public static Data handleFlightData() throws FileNotFoundException {
         ArrayList<FlightInfo> fliedFlights = new ArrayList<>();
         ArrayList<FlightInfo> canceledFlights = new ArrayList<>();
-        File inputFile = new File("src\\assignment_5\\flights_small.csv");
+        File inputFile = new File("src\\assignment_5\\flights.csv");
         Scanner in = new Scanner(inputFile);
         in.nextLine();
         while (in.hasNextLine()) {
@@ -44,12 +55,5 @@ public class FileIO {
             }
         }
         return new Data(fliedFlights, canceledFlights);
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        Data res = FileIO.handleFlightData();
-        System.out.println("END");
-
-
     }
 }
